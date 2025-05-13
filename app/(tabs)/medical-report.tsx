@@ -2,12 +2,23 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Upload, CircleAlert as AlertCircle, TrendingUp, User, Dna } from 'lucide-react-native';
+import { Upload, CircleAlert as AlertCircle, TrendingUp, User, Dna, Info } from 'lucide-react-native';
+import { LineChart } from 'react-native-chart-kit';
 import { useTheme } from '@/hooks/useTheme';
+import { SCREEN_WIDTH } from '@/constants/Dimensions';
 
 export default function MedicalReportScreen() {
   const { colors } = useTheme();
   const router = useRouter();
+
+  const glucoseData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [{
+      data: [95, 102, 110, 118, 122, 126],
+      color: () => colors.error,
+      strokeWidth: 2
+    }]
+  };
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
@@ -49,6 +60,36 @@ export default function MedicalReportScreen() {
             <Text style={[styles.abnormalDate, { color: colors.textSecondary }]}>
               Last tested: March 15, 2025
             </Text>
+
+            <View style={styles.chartContainer}>
+              <Text style={[styles.chartTitle, { color: colors.text }]}>6-Month Trend</Text>
+              <LineChart
+                data={glucoseData}
+                width={SCREEN_WIDTH - 80}
+                height={180}
+                chartConfig={{
+                  backgroundColor: colors.cardBackground,
+                  backgroundGradientFrom: colors.cardBackground,
+                  backgroundGradientTo: colors.cardBackground,
+                  decimalPlaces: 0,
+                  color: (opacity = 1) => colors.text,
+                  labelColor: (opacity = 1) => colors.textSecondary,
+                  style: {
+                    borderRadius: 16
+                  },
+                  propsForDots: {
+                    r: "6",
+                    strokeWidth: "2",
+                    stroke: colors.cardBackground
+                  }
+                }}
+                bezier
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16
+                }}
+              />
+            </View>
           </View>
 
           <TouchableOpacity 
@@ -79,6 +120,26 @@ export default function MedicalReportScreen() {
             <Text style={[styles.abnormalDate, { color: colors.textSecondary }]}>
               Report date: February 20, 2025
             </Text>
+
+            <Image 
+              source={{ uri: 'https://images.pexels.com/photos/7579831/pexels-photo-7579831.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' }}
+              style={styles.geneImage}
+            />
+
+            <View style={styles.infoBox}>
+              <Info size={20} color={colors.primary} />
+              <View style={styles.infoContent}>
+                <Text style={[styles.infoTitle, { color: colors.text }]}>
+                  Important Information
+                </Text>
+                <Text style={[styles.infoText, { color: colors.textSecondary }]}>
+                  • Regular breast and ovarian cancer screening recommended{'\n'}
+                  • Consider genetic counseling for family members{'\n'}
+                  • Preventive measures and lifestyle modifications available{'\n'}
+                  • Schedule follow-up with specialist
+                </Text>
+              </View>
+            </View>
           </View>
 
           <TouchableOpacity 
@@ -167,6 +228,45 @@ const styles = StyleSheet.create({
   abnormalDate: {
     fontSize: 12,
     fontFamily: 'Inter-Regular',
+    marginBottom: 12,
+  },
+  chartContainer: {
+    marginTop: 12,
+    padding: 8,
+    backgroundColor: 'white',
+    borderRadius: 12,
+  },
+  chartTitle: {
+    fontSize: 14,
+    fontFamily: 'Inter-Medium',
+    marginBottom: 8,
+  },
+  geneImage: {
+    width: '100%',
+    height: 150,
+    borderRadius: 8,
+    marginVertical: 12,
+  },
+  infoBox: {
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 12,
+  },
+  infoContent: {
+    flex: 1,
+    marginLeft: 12,
+  },
+  infoTitle: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Medium',
+    marginBottom: 8,
+  },
+  infoText: {
+    fontSize: 12,
+    fontFamily: 'Inter-Regular',
+    lineHeight: 20,
   },
   viewAllButton: {
     padding: 12,
