@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Settings, Bell, CircleHelp as HelpCircle, FileText, Heart, Shield, LogOut } from 'lucide-react-native';
+import { Settings, Bell, CircleHelp as HelpCircle, FileText, Heart, Shield, LogOut, X } from 'lucide-react-native';
 import { useTheme } from '@/hooks/useTheme';
 
 interface DrawerMenuProps {
@@ -46,6 +46,13 @@ export default function DrawerMenu({ onClose }: DrawerMenuProps) {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.cardBackground }]}>
+      <TouchableOpacity 
+        style={styles.closeButton} 
+        onPress={onClose}
+      >
+        <X size={24} color={colors.text} />
+      </TouchableOpacity>
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <Text style={[styles.title, { color: colors.text }]}>Menu</Text>
@@ -87,6 +94,13 @@ const styles = StyleSheet.create({
     width: 300,
     height: '100%',
     padding: 20,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    zIndex: 1,
+    padding: 8,
   },
   header: {
     marginTop: 40,

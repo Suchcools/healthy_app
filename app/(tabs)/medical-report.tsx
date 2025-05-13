@@ -2,32 +2,12 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Upload, CircleAlert as AlertCircle, TrendingUp, User } from 'lucide-react-native';
+import { Upload, CircleAlert as AlertCircle, TrendingUp, User, Dna } from 'lucide-react-native';
 import { useTheme } from '@/hooks/useTheme';
 
 export default function MedicalReportScreen() {
   const { colors } = useTheme();
   const router = useRouter();
-  const [reports, setReports] = useState([
-    {
-      id: '1',
-      date: '2025-03-15',
-      abnormalItems: ['Blood Glucose', 'Cholesterol'],
-      predictions: [
-        { name: 'Blood Pressure', trend: 'increasing' },
-        { name: 'BMI', trend: 'stable' }
-      ]
-    },
-    {
-      id: '2',
-      date: '2025-02-15',
-      abnormalItems: ['Blood Pressure'],
-      predictions: [
-        { name: 'Cholesterol', trend: 'decreasing' },
-        { name: 'Blood Sugar', trend: 'stable' }
-      ]
-    }
-  ]);
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
@@ -50,58 +30,65 @@ export default function MedicalReportScreen() {
           <Text style={styles.uploadText}>Upload New Report</Text>
         </TouchableOpacity>
 
-        {reports.map((report) => (
-          <View 
-            key={report.id}
-            style={[styles.reportCard, { backgroundColor: colors.cardBackground }]}
-          >
-            <Text style={[styles.reportDate, { color: colors.text }]}>
-              Report Date: {report.date}
+        {/* Regular Medical Reports Section */}
+        <View style={[styles.section, { backgroundColor: colors.cardBackground }]}>
+          <View style={styles.sectionHeader}>
+            <AlertCircle size={24} color={colors.primary} />
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>
+              Regular Medical Reports
             </Text>
-
-            <View style={styles.section}>
-              <View style={styles.sectionHeader}>
-                <AlertCircle size={20} color={colors.error} />
-                <Text style={[styles.sectionTitle, { color: colors.text }]}>
-                  Abnormal Results
-                </Text>
-              </View>
-              {report.abnormalItems.map((item, index) => (
-                <Text 
-                  key={index}
-                  style={[styles.abnormalItem, { color: colors.error }]}
-                >
-                  • {item}
-                </Text>
-              ))}
-            </View>
-
-            <View style={styles.section}>
-              <View style={styles.sectionHeader}>
-                <TrendingUp size={20} color={colors.primary} />
-                <Text style={[styles.sectionTitle, { color: colors.text }]}>
-                  Predictions
-                </Text>
-              </View>
-              {report.predictions.map((prediction, index) => (
-                <Text 
-                  key={index}
-                  style={[styles.predictionItem, { color: colors.textSecondary }]}
-                >
-                  • {prediction.name}: {prediction.trend}
-                </Text>
-              ))}
-            </View>
-
-            <TouchableOpacity 
-              style={[styles.viewDetailsButton, { backgroundColor: colors.primary + '20' }]}
-            >
-              <Text style={[styles.viewDetailsText, { color: colors.primary }]}>
-                View Full Report
-              </Text>
-            </TouchableOpacity>
           </View>
-        ))}
+          
+          <View style={styles.abnormalResult}>
+            <Text style={[styles.abnormalTitle, { color: colors.error }]}>
+              Abnormal: Blood Glucose
+            </Text>
+            <Text style={[styles.abnormalValue, { color: colors.textSecondary }]}>
+              Value: 126 mg/dL (Normal range: 70-100 mg/dL)
+            </Text>
+            <Text style={[styles.abnormalDate, { color: colors.textSecondary }]}>
+              Last tested: March 15, 2025
+            </Text>
+          </View>
+
+          <TouchableOpacity 
+            style={[styles.viewAllButton, { backgroundColor: colors.primary + '20' }]}
+          >
+            <Text style={[styles.viewAllText, { color: colors.primary }]}>
+              View All Results
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* WGS Reports Section */}
+        <View style={[styles.section, { backgroundColor: colors.cardBackground }]}>
+          <View style={styles.sectionHeader}>
+            <Dna size={24} color={colors.accent} />
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>
+              Whole Genome Sequencing
+            </Text>
+          </View>
+          
+          <View style={styles.abnormalResult}>
+            <Text style={[styles.abnormalTitle, { color: colors.error }]}>
+              Gene Variant: BRCA1
+            </Text>
+            <Text style={[styles.abnormalValue, { color: colors.textSecondary }]}>
+              Pathogenic variant detected
+            </Text>
+            <Text style={[styles.abnormalDate, { color: colors.textSecondary }]}>
+              Report date: February 20, 2025
+            </Text>
+          </View>
+
+          <TouchableOpacity 
+            style={[styles.viewAllButton, { backgroundColor: colors.primary + '20' }]}
+          >
+            <Text style={[styles.viewAllText, { color: colors.primary }]}>
+              View Full Report
+            </Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -141,7 +128,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     marginLeft: 8,
   },
-  reportCard: {
+  section: {
     borderRadius: 16,
     padding: 16,
     marginBottom: 16,
@@ -151,42 +138,42 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 2,
   },
-  reportDate: {
-    fontSize: 16,
-    fontFamily: 'Poppins-Medium',
-    marginBottom: 16,
-  },
-  section: {
-    marginBottom: 16,
-  },
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 16,
   },
   sectionTitle: {
-    fontSize: 16,
-    fontFamily: 'Poppins-Medium',
+    fontSize: 18,
+    fontFamily: 'Poppins-SemiBold',
     marginLeft: 8,
   },
-  abnormalItem: {
-    fontSize: 14,
-    fontFamily: 'Inter-Regular',
-    marginLeft: 28,
+  abnormalResult: {
+    padding: 12,
+    backgroundColor: 'rgba(255, 55, 95, 0.1)',
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  abnormalTitle: {
+    fontSize: 16,
+    fontFamily: 'Poppins-Medium',
     marginBottom: 4,
   },
-  predictionItem: {
+  abnormalValue: {
     fontSize: 14,
     fontFamily: 'Inter-Regular',
-    marginLeft: 28,
     marginBottom: 4,
   },
-  viewDetailsButton: {
+  abnormalDate: {
+    fontSize: 12,
+    fontFamily: 'Inter-Regular',
+  },
+  viewAllButton: {
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
   },
-  viewDetailsText: {
+  viewAllText: {
     fontSize: 14,
     fontFamily: 'Inter-Medium',
   },
