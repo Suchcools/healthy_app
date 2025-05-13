@@ -5,11 +5,11 @@ import {
   ScrollView, 
   TouchableOpacity,
   Image,
-  Switch
+  Switch 
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { User, FileText, Heart, Settings, Bell, ChevronRight, Moon, LogOut, CircleHelp as HelpCircle, Shield } from 'lucide-react-native';
-
+import { useRouter } from 'expo-router';
+import { User, FileText, Heart, Settings, Bell, ChevronRight, Moon, LogOut, CircleHelp as HelpCircle, Shield, X } from 'lucide-react-native';
 import { useTheme } from '@/hooks/useTheme';
 
 const profileMenuItems = [
@@ -41,9 +41,20 @@ const profileMenuItems = [
 
 export default function ProfileScreen() {
   const { colors, isDark, toggleTheme } = useTheme();
+  const router = useRouter();
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={styles.header}>
+        <TouchableOpacity 
+          style={styles.closeButton} 
+          onPress={() => router.back()}
+        >
+          <X size={24} color={colors.text} />
+        </TouchableOpacity>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>Profile</Text>
+      </View>
+
       <ScrollView 
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
@@ -192,6 +203,20 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    paddingTop: 0,
+  },
+  closeButton: {
+    padding: 8,
+    marginRight: 8,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontFamily: 'Poppins-SemiBold',
   },
   scrollContent: {
     padding: 16,
