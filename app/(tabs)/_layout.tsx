@@ -3,13 +3,6 @@ import { Platform } from 'react-native';
 import { Chrome as Home, Activity, ShoppingBag, Calendar, FileText } from 'lucide-react-native';
 import { useTheme } from '@/hooks/useTheme';
 
-export const unstable_settings = {
-  initialRouteName: "index",
-};
-export default function Layout() {
-  return <Slot />;
-}
-
 export default function TabLayout() {
   const { colors } = useTheme();
   
