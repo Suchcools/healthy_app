@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import { Platform } from 'react-native';
-import { Chrome as Home, Activity, ShoppingBag, Calendar, User } from 'lucide-react-native';
+import { Chrome as Home, Activity, ShoppingBag, Calendar, FileText } from 'lucide-react-native';
 import { useTheme } from '@/hooks/useTheme';
 
 export default function TabLayout() {
@@ -63,11 +63,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="medical-report"
         options={{
-          title: 'Profile',
+          title: 'Reports',
           tabBarIcon: ({ color, size }) => (
-            <User size={size} color={color} />
+            <FileText size={size} color={color} />
           ),
         }}
       />
