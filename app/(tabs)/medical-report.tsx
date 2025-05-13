@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Upload, AlertCircle, TrendingUp, User } from 'lucide-react-native';
+import { Upload, CircleAlert as AlertCircle, TrendingUp, User } from 'lucide-react-native';
 import { useTheme } from '@/hooks/useTheme';
 
 export default function MedicalReportScreen() {

@@ -1,14 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
-import {
-  Settings,
-  Bell,
-  HelpCircle,
-  FileText,
-  Heart,
-  Shield,
-  LogOut
-} from 'lucide-react-native';
+import { Settings, Bell, CircleHelp as HelpCircle, FileText, Heart, Shield, LogOut } from 'lucide-react-native';
 import { useTheme } from '@/hooks/useTheme';
 
 interface DrawerMenuProps {
