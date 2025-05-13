@@ -71,12 +71,6 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          tabBarButton: () => null, // 不渲染 tab 按钮
-        }}
-      />
     </Tabs>
   );
 }
