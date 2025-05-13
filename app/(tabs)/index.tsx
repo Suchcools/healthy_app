@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { format } from 'date-fns';
@@ -7,7 +8,8 @@ import {
   Footprints, 
   Droplets, 
   Moon, 
-  ArrowRight 
+  ArrowRight,
+  Menu
 } from 'lucide-react-native';
 
 import { SCREEN_WIDTH } from '@/constants/Dimensions';
@@ -15,18 +17,32 @@ import Header from '@/components/common/Header';
 import HealthSummaryCard from '@/components/home/HealthSummaryCard';
 import AppointmentCard from '@/components/home/AppointmentCard';
 import ActivityCard from '@/components/home/ActivityCard';
+import DrawerMenu from '@/components/common/DrawerMenu';
 import { useTheme } from '@/hooks/useTheme';
 
 export default function HomeScreen() {
   const { colors } = useTheme();
   const today = format(new Date(), 'EEEE, MMMM d');
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Header 
         title="HealthHub" 
+        leftIcon={<Menu size={24} color={colors.text} />}
+        onLeftIconPress={() => setIsDrawerOpen(true)}
         rightIcon={<Bell size={24} color={colors.text} />} 
       />
+      
+      {isDrawerOpen && (
+        <View style={styles.drawerOverlay}>
+          <TouchableOpacity 
+            style={styles.drawerDismiss} 
+            onPress={() => setIsDrawerOpen(false)} 
+          />
+          <DrawerMenu onClose={() => setIsDrawerOpen(false)} />
+        </View>
+      )}
       
       <ScrollView 
         showsVerticalScrollIndicator={false}
@@ -146,6 +162,19 @@ const styles = StyleSheet.create({
   scrollContent: {
     padding: 16,
     paddingBottom: 32,
+  },
+  drawerOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1000,
+    flexDirection: 'row',
+  },
+  drawerDismiss: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
   welcomeSection: {
     marginBottom: 24,

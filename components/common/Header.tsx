@@ -6,6 +6,8 @@ import { useTheme } from '@/hooks/useTheme';
 interface HeaderProps {
   title: string;
   showBackButton?: boolean;
+  leftIcon?: React.ReactNode;
+  onLeftIconPress?: () => void;
   rightIcon?: React.ReactNode;
   onRightIconPress?: () => void;
 }
@@ -13,6 +15,8 @@ interface HeaderProps {
 export default function Header({
   title,
   showBackButton = false,
+  leftIcon,
+  onLeftIconPress,
   rightIcon,
   onRightIconPress,
 }: HeaderProps) {
@@ -30,13 +34,24 @@ export default function Header({
             <ChevronLeft size={24} color={colors.text} />
           </TouchableOpacity>
         )}
+        {leftIcon && (
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={onLeftIconPress}
+          >
+            {leftIcon}
+          </TouchableOpacity>
+        )}
       </View>
 
       <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
 
       <View style={styles.rightContainer}>
         {rightIcon && (
-          <TouchableOpacity onPress={onRightIconPress}>
+          <TouchableOpacity 
+            style={styles.iconButton}
+            onPress={onRightIconPress}
+          >
             {rightIcon}
           </TouchableOpacity>
         )}
@@ -64,8 +79,13 @@ const styles = StyleSheet.create({
     padding: 8,
     marginLeft: -8,
   },
+  iconButton: {
+    padding: 8,
+  },
   title: {
     fontSize: 20,
     fontFamily: 'Poppins-SemiBold',
   },
 });
+
+export default Header
