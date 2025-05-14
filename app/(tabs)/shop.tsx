@@ -72,7 +72,7 @@ export default function ShopScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Header 
-        title="Health Shop" 
+        title="i99 Health Shop" 
         rightIcon={<ShoppingBag size={24} color={colors.text} />}
       />
 
