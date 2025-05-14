@@ -67,7 +67,7 @@ export default function HealthChart() {
   
   return (
     <View style={styles.container}>
-      <Svg width={width} height={height}>
+      <Svg width={width} height={height} style={{ userSelect: 'none' }}>
         {/* Grid lines */}
         <G>
           {[0, 1, 2, 3].map((i) => (
@@ -113,6 +113,7 @@ export default function HealthChart() {
             fontSize={10}
             fill={colors.textSecondary}
             textAnchor="middle"
+            style={{ userSelect: 'none' }}
           >
             {day}
           </SvgText>
