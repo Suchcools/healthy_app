@@ -23,7 +23,7 @@ export default function MedicalReportScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.header}>
-        <Text style={[styles.title, { color: colors.text }]}>Medical Reports</Text>
+        <Text style={[styles.title, { color: colors.text }]}>i99 Medical Reports</Text>
         <TouchableOpacity onPress={() => router.push('/profile')}>
           <Image
             source={{ uri: 'https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' }}
