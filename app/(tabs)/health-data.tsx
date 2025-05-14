@@ -17,7 +17,7 @@ export default function HealthDataScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Header 
-        title="Health Data" 
+        title="i99 Health Data" 
         showBackButton={false}
       />
       
