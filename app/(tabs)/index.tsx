@@ -28,7 +28,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Header 
-        title="HealthHub" 
+        title="i99 HealthHub" 
         leftIcon={<Menu size={24} color={colors.text} />}
         onLeftIconPress={() => setIsDrawerOpen(true)}
         rightIcon={<Bell size={24} color={colors.text} />} 
