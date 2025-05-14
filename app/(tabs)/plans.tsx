@@ -84,7 +84,7 @@ export default function PlansScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Header 
-        title="Health Plans" 
+        title="i99 Health Plans" 
         rightIcon={<Calendar size={24} color={colors.text} />}
       />
 
